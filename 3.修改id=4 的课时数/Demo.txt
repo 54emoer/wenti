@@ -1,0 +1,27 @@
+package Test;
+import pojo.Course;
+import utils.MyBatisUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import java.util.List;
+public class mybatisTest {
+    //修改id=4的hours
+    @Test
+    public void updateHoursByIdTest(){
+        SqlSession session=MyBatisUtils.getSession();
+        Course course=new Course();
+        course.setId(4);
+        course.setName("高级Web技术");
+        course.setHours(40);
+        course.setSid(1);
+        int row=session.update("mapper"+".courseMapper.updateHoursById",course);
+        if(row>0){
+            System.out.println("您成功修改了"+row+"条数据！");
+        }else{
+            System.out.println("修改失败！");
+        }
+        session.commit();
+        session.close();
+    }
+
+}

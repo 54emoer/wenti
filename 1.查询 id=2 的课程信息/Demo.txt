@@ -1,0 +1,22 @@
+package Test;
+import pojo.Course;
+import utils.MyBatisUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import java.util.List;
+public class mybatisTest {
+    //查询id=2的信息
+    @Test
+    public void findCourseByIdTest(){
+        SqlSession session=MyBatisUtils.getSession();
+        Course course=new Course();
+        course.setId(2);
+        List<Course> courses=session.selectList("mapper"+".courseMapper.findCourseById",course);
+        for(Course course1:courses)
+        {
+            System.out.println(course1);
+        }
+        session.close();
+    }
+
+}

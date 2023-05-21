@@ -1,0 +1,30 @@
+package Test;
+import pojo.Course;
+import utils.MyBatisUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import java.util.List;
+public class mybatisTest {
+    //查询计算机学院所有的课程信息
+    @Test
+    public void findCourseBySidTest(){
+        SqlSession session=MyBatisUtils.getSession();
+        Course course=new Course();
+        System.out.println("计算机学院：");
+        course.setSid(1);
+        List<Course> courses1=session.selectList("mapper"+".courseMapper.findCourseBySid",course);
+        for(Course course2:courses1)
+        {
+            System.out.println(course2);
+        }
+        System.out.println("外国语学院：");
+        course.setSid(2);
+        List<Course> courses2=session.selectList("mapper"+".courseMapper.findCourseBySid",course);
+        for(Course course3:courses2)
+        {
+            System.out.println(course3);
+        }
+        session.close();
+    }
+
+}
